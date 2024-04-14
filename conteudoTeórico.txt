@@ -1,0 +1,64 @@
+Métodos Equals & HashCode //Sempre declarar o id de uma entidade com esses métodos
+
+Eu digo para a aplicação que esses métodos vão representar um mecanismo de comparação entre eles, e quando selecionamos apenas o atributo id
+nós estamos dizendo para essa entidade que o que vai definir se um objeto é igual ou não é o atributo Id, é como se fosse uma chave primaria
+do objeto;
+
+UsuarioEntity u1 = new UsuarioEntity();
+u1.setCodigo(1L)
+u1.setNome("Rogério")
+
+UsuarioEntity u2 = new UsuarioEntity();
+u1.setCodigo(1L)
+u1.setNome("Rogério alterado")
+
+se fizermos umas comparação entre esses dois objetos
+
+u1.equals(u2) ====> TRUE , isso porque o Codigo entre os dois é igual de acordo com o criterio que usamos,
+se nós não usarmos o Equals e o HashCode esses dois objetos seriam diferente mesmo tendo o mesmo Codigo,
+se nós usarmos o Equals e o HashCode tanto no Codigo como no Nome, ai esses dois atributos tem que ser iguais nos objetos
+para que nao comparação eles sejam iguais.
+Nós podemos colocar Equals e HashCode em todos os atributos, ou em nenhum atributo, geralmente nós usamos esses métodos apenas
+no Id, pois no banco de dados o Id é a chave primaria que identifica uma entidade, então usamos esse Id como atributo de comparação
+entre dois objetos.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Diferença entre Entity X DTO(data transfer object)
+
+
+
+As entidades (ENTITY) e os objetos de transferência de dados (DTO - Data Transfer Objects) são dois conceitos importantes em arquitetura de software,
+frequentemente utilizados em aplicações Java (e em outras plataformas também). Aqui está a diferença entre eles:
+
+Entidade (ENTITY):
+
+-Uma entidade é uma classe que representa um conceito do mundo real em seu domínio de negócios.
+-Geralmente, as entidades correspondem diretamente às tabelas do banco de dados em um sistema de banco de dados relacional.
+-Em uma aplicação Java com persistência de dados usando, por exemplo, JPA (Java Persistence API), as entidades são mapeadas para tabelas
+no banco de dados.
+-As entidades geralmente contêm campos que representam os dados que são armazenados no banco de dados, bem como métodos para acessar
+e manipular esses dados.
+-Elas frequentemente contêm anotações específicas da JPA para mapear os campos da classe para as colunas do banco de dados e definir o
+relacionamento entre as entidades.
+
+Objeto de Transferência de Dados (DTO):
+
+Um DTO é um objeto usado para transferir dados entre diferentes camadas ou componentes de um sistema.
+-Geralmente, um DTO carrega apenas dados e não contém lógica de negócios.
+-Os DTOs são frequentemente usados para transmitir dados entre a camada de apresentação (UI) e a camada de serviço ou camada de acesso a dados.
+-Eles podem ser usados para agrupar várias informações relacionadas em um único objeto para facilitar a transmissão eficiente
+de dados pela rede ou entre diferentes partes do sistema.
+-Em alguns casos, os DTOs podem ter uma estrutura diferente da das entidades, por exemplo, podem conter apenas um subconjunto dos
+campos da entidade ou podem incluir campos de várias entidades relacionadas.
+
+
+Em resumo, as entidades são classes que representam os dados no modelo de domínio da aplicação e geralmente correspondem diretamente às
+tabelas do banco de dados, enquanto os DTOs são objetos usados para transferir dados entre diferentes partes do sistema, frequentemente
+agindo como "envelopes" para os dados durante a comunicação entre camadas. Cada um tem um propósito diferente e é usado em contextos
+diferentes na arquitetura de software.
+
+*Em um primeiro momento os dois podem parecer iguais, mais eles tem responsabilidades diferentes.
+*Um DTO não precisa das anotações de uma ENTITY
+*Tem casos que o DTO vai ser identico ao ENTITY
+*DTO não precisa do Equals & HashCode, ele só tem o objetivo de representar dados para transferir para o frontend
